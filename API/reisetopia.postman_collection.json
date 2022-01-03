@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "a8944780-9c68-4ebf-a7b8-86f7b57875a7",
+		"name": "reisetopia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Hotels",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/{{version}}/recruiting/hotels?lang=de-DE",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"{{version}}",
+						"recruiting",
+						"hotels"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "de-DE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
