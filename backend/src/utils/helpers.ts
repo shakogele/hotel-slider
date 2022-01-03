@@ -1,3 +1,5 @@
+import { PropOneOfLangType, LangsType } from "../models/hotel";
+
 export const getDistanceFromLatLonInKm = (lat1: number,lon1: number,lat2: number,lon2: number): number => {
 	let R = 6371;
 	let dLat = deg2rad(lat2-lat1);
@@ -23,4 +25,20 @@ export const generateError = (message: string, code: number): object => {
 		message,
 		code
 	}
+}
+
+export const getFallbackLangAttribute = (prop: PropOneOfLangType, lang: LangsType) => {
+	const languagesArr = ['en-US','de-DE', 'fr-FR', 'es-ES'];
+	if(!prop){
+		return '';
+	}
+	if(prop[lang]){
+		return prop[lang];
+	}
+	for(let i=0; i<languagesArr.length; i++){
+		if(prop[languagesArr[i] as LangsType]) {
+			return prop[languagesArr[i] as LangsType];
+		}
+	}
+	return '';
 }

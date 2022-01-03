@@ -1,8 +1,8 @@
-import { getDistanceFromBerln } from '../utils/helpers';
+import { getDistanceFromBerln, getFallbackLangAttribute } from '../utils/helpers';
 
 export type LangsType = 'en-US' | 'de-DE' | 'fr-FR' | 'es-ES'
 
-type PropOneOfLangType = {
+export type PropOneOfLangType = {
 	[Property in LangsType]?: string | undefined
 }
 type ImageType = {
@@ -84,10 +84,10 @@ export class Hotel implements HotelInterface {
 	benefits: BenefitOutType[];
     constructor(hotel: HotelType, lang: LangsType) {
 		this.id = hotel.id;
-		this.name = hotel.name[lang];
-		this.address = hotel.address[lang];
-		this.city = hotel.city[lang];
-		this.description = hotel.description[lang];
+		this.name = getFallbackLangAttribute(hotel.name, lang);
+		this.address = getFallbackLangAttribute(hotel.address, lang);
+		this.city = getFallbackLangAttribute(hotel.city, lang);
+		this.description = getFallbackLangAttribute(hotel.description, lang);
 		this.minPrice = hotel.minPrice;
 		this.currencyCode = hotel.currencyCode;
 		this.distanceToCenterKm = getDistanceFromBerln(hotel.lat, hotel.lng);
@@ -100,7 +100,7 @@ export class Hotel implements HotelInterface {
 		let benefitsArr: BenefitOutType[] = [];
 		benefits.forEach((benefit: BenefitInType) => {
 			benefitsArr.push({
-				text: benefit.text[lang]
+				text: getFallbackLangAttribute(benefit.text, lang)
 			})
 		});
 		return benefitsArr;
@@ -111,8 +111,8 @@ export class Hotel implements HotelInterface {
 			headline: '',
 			details: '',
 		};
-		firstDeal.headline = deals[0]?.headline[lang];
-		firstDeal.details = deals[0]?.details[lang];
+		firstDeal.headline = getFallbackLangAttribute(deals[0]?.headline, lang);
+		firstDeal.details = getFallbackLangAttribute(deals[0]?.details, lang);
 	
 		return firstDeal;
 	}
@@ -123,7 +123,7 @@ export class Hotel implements HotelInterface {
 			caption: '',
 		};
 		firstImage.url = images[0].url;
-		firstImage.caption = images[0].caption[lang];
+		firstImage.caption = getFallbackLangAttribute(images[0].caption, lang);
 	
 		return firstImage;
 	}

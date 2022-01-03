@@ -1,3 +1,4 @@
+var cors = require('cors')
 import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 import { ResultInterface } from './models/hotel';
@@ -5,6 +6,11 @@ import { ResultInterface } from './models/hotel';
 import hotelRoutes from './routes/hotels';
 
 const app = express();
+var corsOptions = {
+	origin: 'http://localhost:3000',
+	optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions))
 
 app.use(json());
 
