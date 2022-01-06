@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from 'swiper';
-import { HotelInterface } from '../../ts/hotel';
+import { HotelInterface, LangsType } from '../../ts/hotel';
 import { connect } from 'react-redux';
 import { getHotels } from '../../redux/actions/hotels';
 import { AppDispatch, RootState } from '../../redux/store';
@@ -16,7 +16,7 @@ SwiperCore.use([Navigation]);
 
 type HotelSliderProps = {
 	hotels: HotelInterface[],
-	onGetHotels: () => void,
+	onGetHotels: (lang: LangsType ) => void,
 }
 
 const HotelSlider: React.FC<HotelSliderProps> = (props) => {
@@ -28,7 +28,7 @@ const HotelSlider: React.FC<HotelSliderProps> = (props) => {
 	}
 
 	useEffect(() => {
-		onGetHotels()
+		onGetHotels('de-DE')
 	}, []);
 
 	return (
@@ -104,10 +104,10 @@ const HotelSlider: React.FC<HotelSliderProps> = (props) => {
 const mapStateToProps = (state: RootState) => {
 	return {
 		hotels: state.hotels.list.splice(0, 5)
-	}
+	}	
 }
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-	onGetHotels: () => dispatch(getHotels())
+	onGetHotels: (lang: LangsType) => dispatch(getHotels(lang))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HotelSlider);

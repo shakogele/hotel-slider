@@ -3,7 +3,9 @@ import { uiStartLoading, uiStopLoading } from './ui'
 import { AppDispatch } from '../store';
 import { HotelInterface } from '../../ts/hotel';
 
-export const getHotels = () => (dispatch: AppDispatch) => {
+import { LangsType } from '../../ts/hotel';
+
+export const getHotels = (lang: LangsType) => (dispatch: AppDispatch) => {
 	dispatch(uiStartLoading());
 
 	let myHeaders = new Headers();
@@ -16,7 +18,7 @@ export const getHotels = () => (dispatch: AppDispatch) => {
 		headers: myHeaders,
 	};
 
-	fetch('http://localhost:3001/v1/recruiting/hotels?lang=de-DE', requestOptions)
+	fetch(`http://localhost:3001/v1/recruiting/hotels?lang=${lang}`, requestOptions)
 		.then(response => response.json())
 		.then(res => {
 			dispatch(setHotels(res.result))
